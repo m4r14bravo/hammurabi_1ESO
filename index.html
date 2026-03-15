@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El Código de Hammurabi — Geografía e Historia 1.º ESO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════
+   VARIABLES & RESET
+══════════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Paleta tablilla cuneiforme */
+  --bg:      #F5EDD8;   /* arena cálida */
+  --bg2:     #EDE0C4;   /* arena media */
+  --bg3:     #DFD0A8;   /* arena oscura */
+  --card:    #FDFAF2;   /* pergamino claro */
+  --tinta:   #2C1A0A;   /* tinta oscura */
+  --sub:     #6B4F2A;   /* marrón secundario */
+
+  /* Acento dorado-terracota */
+  --or:      #C8861A;   /* dorado */
+  --orl:     #FFF3CC;   /* dorado claro */
+  --td:      #8B2B0E;   /* terracota oscuro */
+  --tm:      #B84020;   /* terracota medio */
+  --tc:      #FAEAE4;   /* terracota claro */
+
+  /* Verde WCDI */
+  --vd:      #2E5E2E;
+  --vc:      #E8F5E9;
+
+  /* Azul análisis */
+  --az:      #1A3A5C;
+  --acl:     #E0EAF4;
+
+  /* Feedbacks */
+  --ok-bg:   #E8F5E9; --ok-brd: #A5D6A7; --ok-tx: #1B5E20;
+  --par-bg:  #FFF8E1; --par-brd:#FFD54F; --par-tx: #7A5800;
+  --mal-bg:  #FFEBEE; --mal-brd:#EF9A9A; --mal-tx: #B71C1C;
+
+  --r:4px; --rs:3px;
+  --sh: 0 2px 12px rgba(0,0,0,.10);
+}
+
+html{scroll-behavior:smooth}
+body{
+  font-family:'Crimson Pro',Georgia,serif;
+  background:var(--bg);
+  color:var(--tinta);
+  font-size:16px;line-height:1.75;
+  min-height:100vh;
+}
+
+/* Textura sutil de fondo */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity:.7;
+}
+
+.page-wrap{position:relative;z-index:1;max-width:920px;margin:0 auto;padding:0 0 80px}
+
+/* ══════════════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════════════ */
+.site-header{
+  background:var(--td);
+  padding:36px 40px 28px;
+  position:relative;overflow:hidden;
+  color:#F5EDD8;
+}
+/* Patrón cuneiforme decorativo */
+.site-header::before{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(
+    45deg,
+    transparent 0,transparent 8px,
+    rgba(255,255,255,.04) 8px,rgba(255,255,255,.04) 9px
+  );
+}
+.site-header::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,var(--or),#E8A820,var(--or));
+}
+.header-sup{
+  font-family:'Space Mono',monospace;font-size:.65rem;
+  color:rgba(245,237,216,.6);letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:12px;position:relative;
+}
+.header-title{
+  font-family:'Cinzel',serif;
+  font-size:clamp(1.6rem,4vw,2.6rem);
+  font-weight:700;line-height:1.1;
+  color:#F5EDD8;margin-bottom:6px;position:relative;
+}
+.header-title span{color:var(--or)}
+.header-sub{
+  font-family:'Crimson Pro',serif;font-style:italic;
+  font-size:1.05rem;color:rgba(245,237,216,.75);
+  margin-bottom:18px;position:relative;
+}
+.header-meta{
+  display:flex;gap:18px;flex-wrap:wrap;
+  font-family:'Space Mono',monospace;font-size:.65rem;
+  color:rgba(245,237,216,.6);letter-spacing:.5px;
+  position:relative;
+}
+.header-meta span::before{content:'— ';color:var(--or)}
+.prog-wrap{
+  height:3px;background:rgba(245,237,216,.15);
+  margin-top:18px;border-radius:2px;overflow:hidden;position:relative;
+}
+.prog-bar{
+  height:100%;width:0;border-radius:2px;
+  background:linear-gradient(90deg,var(--or),#E8A820);
+  transition:width .6s ease;
+}
+.btn-generar{
+  display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+  background:transparent;border:1.5px solid rgba(200,134,26,.5);
+  color:var(--or);border-radius:2px;padding:7px 16px;
+  font-family:'Space Mono',monospace;font-size:.68rem;
+  letter-spacing:.8px;cursor:pointer;position:relative;
+  transition:border-color .2s,background .2s;
+}
+.btn-generar:hover{border-color:var(--or);background:rgba(200,134,26,.1);}
+
+/* ══════════════════════════════════════════════════════
+   NAV BLOQUES
+══════════════════════════════════════════════════════ */
+.bloque-nav{
+  display:flex;background:var(--card);
+  border-bottom:2px solid var(--bg3);
+  padding:0 40px;gap:0;overflow-x:auto;
+}
+.bloque-tab{
+  font-family:'Space Mono',monospace;font-size:.67rem;
+  letter-spacing:.8px;text-transform:uppercase;
+  padding:14px 18px;color:var(--sub);
+  border:none;background:none;cursor:pointer;
+  border-bottom:3px solid transparent;transition:all .2s;
+  white-space:nowrap;flex-shrink:0;
+}
+.bloque-tab:hover{color:var(--tinta)}
+.bloque-tab.active{color:var(--td);border-bottom-color:var(--or)}
+
+/* ══════════════════════════════════════════════════════
+   BLOQUES CONTENT
+══════════════════════════════════════════════════════ */
+.bloque{display:none;padding:36px 40px}
+.bloque.active{display:block}
+
+/* ══════════════════════════════════════════════════════
+   APUNTES / TARJETAS DE CONTENIDO
+══════════════════════════════════════════════════════ */
+.apunte{
+  background:var(--card);border:1px solid var(--bg3);
+  border-radius:var(--r);padding:24px 28px;
+  margin-bottom:24px;box-shadow:var(--sh);
+  position:relative;
+}
+.apunte::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  border-radius:var(--r) var(--r) 0 0;
+  background:linear-gradient(90deg,var(--td),var(--or));
+}
+.apunte.az::before{background:linear-gradient(90deg,var(--az),#4A8AC0)}
+.apunte.vd::before{background:linear-gradient(90deg,var(--vd),#5A9A5A)}
+.apunte.or::before{background:linear-gradient(90deg,var(--or),#E8A820)}
+
+.apunte-title{
+  font-family:'Cinzel',serif;font-size:1rem;font-weight:600;
+  color:var(--td);margin-bottom:12px;
+  display:flex;align-items:center;gap:8px;
+}
+.apunte.az .apunte-title{color:var(--az)}
+.apunte.vd .apunte-title{color:var(--vd)}
+.apunte.or .apunte-title{color:var(--or)}
+
+.apunte p{
+  font-size:.96rem;margin-bottom:.75em;line-height:1.75;
+  color:var(--tinta);
+}
+.apunte p:last-child{margin-bottom:0}
+.apunte strong{color:var(--td)}
+.apunte.az strong{color:var(--az)}
+.apunte.vd strong{color:var(--vd)}
+.apunte.or strong{color:#8B6500}
+
+/* ══════════════════════════════════════════════════════
+   IMÁGENES CON ATRIBUCIÓN
+══════════════════════════════════════════════════════ */
+.img-grid{display:grid;gap:14px;margin-bottom:24px}
+.img-grid.col-3{grid-template-columns:repeat(3,1fr)}
+.img-grid.col-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:640px){.img-grid.col-3,.img-grid.col-2{grid-template-columns:1fr}}
+.img-wrap{
+  border-radius:var(--r);overflow:hidden;
+  box-shadow:var(--sh);background:var(--bg2);
+  border:1px solid var(--bg3);
+}
+.img-wrap img{
+  width:100%;height:220px;object-fit:cover;display:block;
+  transition:transform .4s;
+}
+.img-wrap:hover img{transform:scale(1.04)}
+.img-credit{
+  padding:6px 10px;
+  font-family:'Space Mono',monospace;font-size:.58rem;
+  color:var(--sub);letter-spacing:.3px;line-height:1.4;
+  border-top:1px solid var(--bg3);background:var(--card);
+}
+.img-credit a{color:var(--or);text-decoration:none}
+.img-credit a:hover{text-decoration:underline}
+
+/* Lightbox */
+#lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);
+  z-index:9998;align-items:center;justify-content:center;cursor:zoom-out}
+#lb.open{display:flex}
+#lb img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:4px}
+#lb-cap{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);
+  color:#ccc;font-family:'Space Mono',monospace;font-size:.68rem;
+  background:rgba(0,0,0,.7);padding:5px 14px;border-radius:2px}
+#lb-close{position:fixed;top:16px;right:20px;color:#fff;font-size:1.8rem;
+  background:none;border:none;cursor:pointer;opacity:.7}
+#lb-close:hover{opacity:1}
+
+/* ══════════════════════════════════════════════════════
+   VÍDEO EMBED
+══════════════════════════════════════════════════════ */
+.video-wrap{
+  position:relative;padding-bottom:56.25%;height:0;overflow:hidden;
+  border-radius:var(--r);margin-bottom:24px;
+  box-shadow:var(--sh);border:1px solid var(--bg3);
+}
+.video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%}
+
+/* ══════════════════════════════════════════════════════
+   ACTIVIDADES
+══════════════════════════════════════════════════════ */
+.actividad{
+  background:var(--card);border:1.5px solid var(--bg3);
+  border-radius:var(--r);margin-bottom:24px;overflow:hidden;
+  box-shadow:var(--sh);
+}
+.act-header{
+  padding:14px 22px;background:var(--bg2);
+  border-bottom:1.5px solid var(--bg3);
+  display:flex;align-items:baseline;gap:12px;
+}
+.act-num{
+  font-family:'Space Mono',monospace;font-size:.65rem;
+  color:var(--td);letter-spacing:1px;text-transform:uppercase;
+  background:rgba(139,43,14,.08);border:1px solid rgba(139,43,14,.2);
+  padding:3px 9px;border-radius:2px;white-space:nowrap;flex-shrink:0;
+}
+.act-header h3{
+  font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;
+  color:var(--tinta);line-height:1.3;
+}
+.act-body{padding:18px 22px;background:var(--card)}
+.act-footer{
+  padding:10px 22px;border-top:1.5px solid var(--bg3);
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  background:var(--bg2);
+}
+.instruccion{
+  font-size:.88rem;color:var(--sub);margin-bottom:14px;
+  font-style:italic;line-height:1.6;
+}
+
+/* Botones */
+.btn-check{
+  padding:8px 20px;background:var(--td);color:#fff;
+  border:none;border-radius:var(--r);font-family:'Space Mono',monospace;
+  font-size:.68rem;letter-spacing:.5px;cursor:pointer;transition:background .2s;
+}
+.btn-check:hover{background:var(--tm)}
+.btn-check.vd{background:var(--vd)}.btn-check.vd:hover{background:#3A7A3A}
+.btn-reset{
+  padding:8px 16px;background:transparent;color:var(--sub);
+  border:1.5px solid var(--bg3);border-radius:var(--r);
+  font-family:'Space Mono',monospace;font-size:.68rem;cursor:pointer;
+  transition:border-color .2s,color .2s;
+}
+.btn-reset:hover{border-color:var(--sub);color:var(--tinta)}
+.score-badge{
+  font-family:'Space Mono',monospace;font-size:.75rem;
+  padding:4px 12px;border-radius:2px;background:var(--bg3);color:var(--sub);
+}
+
+/* Feedback */
+.feedback{border-radius:var(--r);padding:0;font-size:.9rem;
+  max-height:0;overflow:hidden;transition:all .3s;font-family:'Crimson Pro',serif}
+.feedback.ok{background:var(--ok-bg);border:1.5px solid var(--ok-brd);
+  color:var(--ok-tx);padding:10px 14px;max-height:80px;margin-top:10px}
+.feedback.partial{background:var(--par-bg);border:1.5px solid var(--par-brd);
+  color:var(--par-tx);padding:10px 14px;max-height:80px;margin-top:10px}
+.feedback.fail{background:var(--mal-bg);border:1.5px solid var(--mal-brd);
+  color:var(--mal-tx);padding:10px 14px;max-height:120px;margin-top:10px}
+
+/* ══════════════════════════════════════════════════════
+   VF
+══════════════════════════════════════════════════════ */
+.vf-list{display:flex;flex-direction:column;gap:8px}
+.vf-item{
+  display:flex;align-items:flex-start;gap:12px;
+  background:var(--bg);border:1.5px solid var(--bg3);
+  border-radius:var(--r);padding:12px 16px;
+}
+.vf-item.correct{background:var(--ok-bg);border-color:var(--ok-brd)}
+.vf-item.wrong{background:var(--mal-bg);border-color:var(--mal-brd)}
+.vf-text{flex:1;font-size:.93rem;color:var(--tinta)}
+.vf-explain{
+  display:none;margin-top:8px;font-size:.85rem;font-style:italic;
+  color:var(--sub);background:rgba(0,0,0,.04);
+  border-radius:var(--r);padding:8px 12px;line-height:1.5;
+}
+.vf-item.correct .vf-explain,.vf-item.wrong .vf-explain{display:block}
+.vf-btns{display:flex;gap:6px;flex-shrink:0}
+.vf-btn{
+  width:36px;height:36px;border-radius:2px;
+  border:1.5px solid var(--bg3);background:var(--card);
+  color:var(--sub);font-family:'Space Mono',monospace;
+  font-size:.8rem;font-weight:700;cursor:pointer;transition:all .2s;
+}
+.vf-btn:hover{border-color:var(--td);color:var(--td)}
+.vf-btn.v-sel{background:var(--ok-bg);border-color:var(--vd);color:var(--ok-tx)}
+.vf-btn.f-sel{background:var(--mal-bg);border-color:var(--mal-tx);color:var(--mal-tx)}
+
+/* ══════════════════════════════════════════════════════
+   MATCHING
+══════════════════════════════════════════════════════ */
+.match-wrap{display:grid;grid-template-columns:1fr 1fr;gap:10px 16px;align-items:start}
+@media(max-width:560px){.match-wrap{grid-template-columns:1fr}}
+.match-col{display:flex;flex-direction:column;gap:7px}
+.match-col-title{
+  font-family:'Space Mono',monospace;font-size:.62rem;
+  color:var(--sub);letter-spacing:1px;text-transform:uppercase;
+  margin-bottom:4px;font-weight:700;
+}
+.match-item{
+  background:var(--bg);border:1.5px solid var(--bg3);
+  border-radius:var(--r);padding:10px 14px;
+  font-size:.9rem;color:var(--tinta);cursor:pointer;
+  transition:border-color .2s,background .2s;user-select:none;
+}
+.match-item:hover{border-color:var(--td);background:var(--tc)}
+.match-item.selected{border-color:var(--td);background:var(--tc);color:var(--td)}
+.match-item.matched{border-color:var(--vd);background:var(--ok-bg);
+  color:var(--ok-tx);cursor:default;pointer-events:none}
+.match-item.wrong-flash{border-color:var(--mal-brd);background:var(--mal-bg)}
+
+/* ══════════════════════════════════════════════════════
+   CLOZE
+══════════════════════════════════════════════════════ */
+.cloze-text{
+  font-size:.95rem;line-height:2;color:var(--tinta);
+  background:var(--bg);border:1.5px solid var(--bg3);
+  border-radius:var(--r);padding:16px 20px;margin-bottom:12px;
+}
+.cloze-input{
+  display:inline-block;border:none;border-bottom:2px solid var(--or);
+  background:transparent;font-family:'Crimson Pro',serif;font-size:.95rem;
+  color:var(--tinta);outline:none;padding:0 4px;
+  min-width:120px;text-align:center;transition:border-color .2s;
+}
+.cloze-input:focus{border-bottom-color:var(--td)}
+.cloze-input.ok{border-bottom-color:var(--vd);color:var(--ok-tx)}
+.cloze-input.fail{border-bottom-color:var(--mal-tx);color:var(--mal-tx)}
+
+/* ══════════════════════════════════════════════════════
+   ELECCIÓN MÚLTIPLE
+══════════════════════════════════════════════════════ */
+.mc-q{margin-bottom:20px}
+.mc-q-text{font-size:.93rem;font-weight:600;margin-bottom:10px;
+  color:var(--tinta);line-height:1.5}
+.mc-q-num{font-family:'Space Mono',monospace;font-size:.7rem;
+  color:var(--or);margin-right:6px}
+.mc-opt{
+  display:block;width:100%;text-align:left;
+  padding:9px 14px;margin:5px 0;
+  border:1.5px solid var(--bg3);border-radius:var(--r);
+  background:var(--bg);font-family:'Crimson Pro',serif;
+  font-size:.9rem;color:var(--tinta);cursor:pointer;
+  transition:all .15s;
+}
+.mc-opt:hover{border-color:var(--td);background:var(--tc)}
+.mc-opt.correct{border-color:var(--vd);background:var(--ok-bg);
+  color:var(--ok-tx);cursor:default}
+.mc-opt.wrong{border-color:var(--mal-brd);background:var(--mal-bg);
+  color:var(--mal-tx);cursor:default}
+.mc-exp{
+  display:none;font-size:.85rem;font-style:italic;color:var(--sub);
+  background:rgba(0,0,0,.03);border-radius:var(--r);
+  padding:8px 12px;margin-top:6px;line-height:1.5;
+}
+.mc-exp.visible{display:block}
+
+/* ══════════════════════════════════════════════════════
+   SORT (ORDENAR)
+══════════════════════════════════════════════════════ */
+.sort-list{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.sort-item{
+  display:flex;align-items:center;gap:12px;
+  background:var(--bg);border:1.5px solid var(--bg3);
+  border-radius:var(--r);padding:10px 14px;cursor:pointer;
+  transition:background .15s,border-color .15s;font-size:.9rem;
+}
+.sort-item:hover{background:var(--tc);border-color:var(--td)}
+.sort-item.selected{background:var(--tc);border-color:var(--or)}
+.sort-item.correct{background:var(--ok-bg);border-color:var(--vd);cursor:default}
+.sort-item.wrong{background:var(--mal-bg);border-color:var(--mal-brd);cursor:default}
+.sort-pos{
+  font-family:'Space Mono',monospace;font-size:.75rem;
+  font-weight:700;color:var(--or);min-width:20px;text-align:center;
+}
+.sort-hint{font-size:.82rem;color:var(--sub);font-style:italic;margin-bottom:10px}
+
+/* ══════════════════════════════════════════════════════
+   WCDI (verde, diseño pergamino)
+══════════════════════════════════════════════════════ */
+.wcdi-bloque{
+  border:1.5px solid #A5D6A7;border-radius:var(--r);
+  background:#F1F8F1;padding:22px 26px;margin-bottom:24px;
+}
+.wcdi-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:'Space Mono',monospace;font-size:.67rem;
+  color:var(--vd);letter-spacing:1px;text-transform:uppercase;
+  background:var(--vc);border:1px solid #A5D6A7;
+  padding:3px 12px;border-radius:2px;margin-bottom:12px;
+}
+.wcdi-bloque h3{
+  font-family:'Cinzel',serif;font-size:1rem;
+  color:#1B5E20;margin-bottom:10px;
+}
+.wcdi-bloque p{font-size:.93rem;color:#2E4A2E;line-height:1.75;margin-bottom:.8em}
+.wcdi-bloque p:last-child{margin-bottom:0}
+.wcdi-bloque strong{color:#1B5E20}
+
+/* Tarjetas WCDI */
+.wcdi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+@media(max-width:600px){.wcdi-cards{grid-template-columns:1fr}}
+.wcdi-card{
+  background:#fff;border:1.5px solid #A5D6A7;
+  border-radius:var(--r);padding:16px;cursor:pointer;
+  transition:box-shadow .2s;
+}
+.wcdi-card:hover{box-shadow:0 4px 16px rgba(46,94,46,.15)}
+.wcdi-card .nombre{font-family:'Cinzel',serif;font-size:.88rem;
+  font-weight:600;color:#1B5E20;margin-bottom:4px}
+.wcdi-card .hint{font-family:'Space Mono',monospace;font-size:.6rem;
+  color:#4A7A4A;margin-bottom:8px}
+.wcdi-card .back{display:none;font-size:.82rem;color:#2E4A2E;line-height:1.5}
+.wcdi-card .back a{color:var(--vd);font-size:.72rem;
+  display:block;margin-top:6px;text-decoration:none;border-bottom:1px solid var(--vd)}
+.wcdi-card.open .back{display:block}
+.wcdi-card.open .hint{display:none}
+.flip-hint{font-family:'Space Mono',monospace;font-size:.58rem;
+  color:#7ABD7A;text-align:center;margin-top:8px;letter-spacing:.5px}
+
+/* Tabla de análisis (Act. Pergamino) */
+.pergamino-tabla{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
+.pergamino-tabla th{
+  background:var(--td);color:#F5EDD8;padding:8px 12px;
+  text-align:left;font-family:'Cinzel',serif;font-weight:600;font-size:.8rem;
+}
+.pergamino-tabla td{
+  padding:8px 12px;border-bottom:1px solid var(--bg3);
+  vertical-align:top;color:var(--tinta);
+}
+.pergamino-tabla tr:nth-child(even) td{background:var(--bg)}
+.ley-num{font-family:'Space Mono',monospace;font-size:.7rem;
+  color:var(--or);font-weight:700}
+
+/* Textarea para análisis libre */
+.obs-area{
+  width:100%;background:var(--bg);
+  border:1.5px solid var(--bg3);border-radius:var(--r);
+  color:var(--tinta);font-family:'Crimson Pro',serif;font-size:.92rem;
+  padding:12px 14px;resize:vertical;min-height:80px;outline:none;
+  transition:border-color .2s;line-height:1.6;
+}
+.obs-area:focus{border-color:var(--or)}
+.obs-area::placeholder{color:var(--sub);font-style:italic}
+.chars-left{font-family:'Space Mono',monospace;font-size:.62rem;
+  color:var(--sub);text-align:right;margin-top:3px}
+
+/* ══════════════════════════════════════════════════════
+   MODALES INFORME
+══════════════════════════════════════════════════════ */
+.inf-overlay{
+  display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);
+  z-index:9999;backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;
+}
+.inf-overlay.open{display:flex}
+.inf-modal{
+  background:var(--card);color:var(--tinta);
+  border-radius:4px;max-width:660px;width:94%;max-height:90vh;
+  overflow:hidden;display:flex;flex-direction:column;
+  box-shadow:0 8px 40px rgba(0,0,0,.3);
+}
+.inf-mh{
+  background:var(--td);color:#F5EDD8;padding:14px 20px;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;
+}
+.inf-mh h2{font-family:'Cinzel',serif;font-size:.9rem;font-weight:600;margin:0}
+.inf-mh.doc{background:var(--az)}
+.inf-mclose{background:none;border:none;color:#F5EDD8;font-size:1.4rem;
+  cursor:pointer;opacity:.7;line-height:1;padding:0 4px}
+.inf-mclose:hover{opacity:1}
+.inf-mbody{overflow-y:auto;padding:20px;flex:1}
+.inf-mfooter{
+  padding:10px 20px;border-top:1.5px solid var(--bg3);
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+  background:var(--bg2);flex-shrink:0;
+}
+.inf-aviso{background:#FFF8E1;border:1.5px solid #FFD54F;border-radius:var(--r);
+  padding:9px 13px;font-size:.82rem;color:#7A5800;margin-bottom:12px;display:none}
+.inf-aviso.visible{display:block}
+.inf-resumen{background:var(--tc);border-radius:var(--r);padding:9px 13px;
+  font-size:.85rem;font-weight:600;color:var(--td);margin-bottom:14px}
+.inf-tabla{width:100%;border-collapse:collapse;font-size:.8rem;margin-bottom:14px}
+.inf-tabla th{background:var(--bg2);color:var(--td);padding:6px 10px;
+  text-align:left;font-weight:700;font-family:'Space Mono',monospace;
+  font-size:.68rem;border-bottom:2px solid var(--bg3);letter-spacing:.3px}
+.inf-tabla td{padding:5px 10px;border-bottom:1px solid var(--bg3);vertical-align:middle}
+.inf-tabla tr:last-child td{border-bottom:none}
+.inf-pill{display:inline-block;padding:2px 8px;border-radius:10px;
+  font-size:.72rem;font-weight:600;font-family:'Space Mono',monospace}
+.inf-pill.ok{background:var(--ok-bg);color:var(--ok-tx)}
+.inf-pill.par{background:var(--par-bg);color:var(--par-tx)}
+.inf-pill.mal{background:var(--mal-bg);color:var(--mal-tx)}
+.inf-pill.pend{background:#F0F0F0;color:#888}
+.inf-pill.txt{background:#EEF0FF;color:#3A3A8A}
+.ini-wrap{display:flex;gap:10px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+.ini-wrap label{font-family:'Space Mono',monospace;font-size:.68rem;
+  color:var(--td);white-space:nowrap;letter-spacing:.3px}
+.ini-input{width:100px;padding:6px 10px;border:1.5px solid var(--bg3);
+  border-radius:var(--r);font-size:.88rem;font-family:'Space Mono',monospace;
+  background:var(--card);color:var(--tinta)}
+.ini-input:focus{outline:none;border-color:var(--tm)}
+.codigo-box{background:var(--bg3);color:var(--sub);border:1.5px solid var(--bg3);
+  border-radius:var(--r);padding:10px 12px;font-family:'Space Mono',monospace;
+  font-size:.68rem;word-break:break-all;max-height:80px;overflow-y:auto;
+  margin-bottom:10px;display:none}
+.codigo-box.visible{display:block}
+.btn-inf{padding:8px 16px;border-radius:var(--r);font-family:'Space Mono',monospace;
+  font-size:.68rem;font-weight:700;cursor:pointer;border:1.5px solid;letter-spacing:.3px}
+.btn-inf.prim{background:var(--td);color:#fff;border-color:var(--td)}
+.btn-inf.prim:hover{background:var(--tm)}
+.btn-inf.prim.doc{background:var(--az);border-color:var(--az)}
+.btn-inf.sec{background:var(--card);color:var(--sub);border-color:var(--bg3)}
+.btn-inf.sec:hover{background:var(--bg2)}
+.btn-inf.cop{background:var(--vd);color:#fff;border-color:var(--vd);display:none}
+.btn-inf.cop.visible{display:inline-flex;align-items:center;gap:6px}
+.copy-ok{font-size:.75rem;color:var(--vd);font-weight:600;display:none;
+  font-family:'Space Mono',monospace}
+.copy-ok.visible{display:block}
+.doc-paste{width:100%;padding:10px 12px;border:1.5px solid var(--bg3);
+  border-radius:var(--r);font-family:'Space Mono',monospace;font-size:.72rem;
+  resize:vertical;min-height:70px;background:var(--card);color:var(--tinta);
+  margin-bottom:10px}
+.doc-paste:focus{outline:none;border-color:var(--az)}
+.doc-resultado{display:none;margin-top:14px}
+.doc-resultado.visible{display:block}
+.doc-alumno{background:var(--acl);border-radius:var(--r);padding:9px 13px;
+  margin-bottom:12px;font-size:.85rem}
+.doc-alumno strong{color:var(--az)}
+.doc-refs{margin-top:14px;background:var(--bg2);border-radius:var(--r);
+  padding:12px 16px;border-left:3px solid var(--az)}
+.doc-refs h4{font-family:'Cinzel',serif;font-size:.88rem;color:var(--az);margin-bottom:10px}
+.doc-ref-item{margin-bottom:10px}
+.doc-ref-item label{font-family:'Space Mono',monospace;font-size:.65rem;
+  color:var(--sub);letter-spacing:.3px;display:block;margin-bottom:3px}
+.doc-ref-item p{font-size:.83rem;color:var(--tinta);line-height:1.6}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+@media(max-width:680px){
+  .bloque{padding:22px 16px}
+  .apunte{padding:18px 16px}
+  .act-body,.act-footer,.act-header{padding-left:14px;padding-right:14px}
+  .site-header{padding:26px 18px 22px}
+  .bloque-nav{padding:0 16px}
+}
+</style>
+</head>
+<body>
+<div class="page-wrap">
+
+<!-- HEADER -->
+<div class="site-header">
+  <div class="header-sup">Geografía e Historia · 1.º ESO · Proyecto CITE We Can Do It</div>
+  <h1 class="header-title">El <span>Código de Hammurabi</span></h1>
+  <p class="header-sub">La mujer en Mesopotamia · Ley, poder y género en el mundo antiguo</p>
+  <div class="header-meta">
+    <span>3 bloques</span>
+    <span>Investigación digital</span>
+    <span>Producto final: pergamino</span>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="global-progress"></div></div>
+  <button class="btn-generar" onclick="abrirModalAlumno()">▣ Generar código de entrega</button>
+</div>
+
+<!-- NAV BLOQUES -->
+<nav class="bloque-nav">
+  <button class="bloque-tab active" onclick="mostrarBloque('b1',this)">Bloque 1 — Mesopotamia</button>
+  <button class="bloque-tab" onclick="mostrarBloque('b2',this)">Bloque 2 — El Código</button>
+  <button class="bloque-tab" onclick="mostrarBloque('b3',this)">Bloque 3 — La mujer</button>
+</nav>
+
+<!-- ══════════════════════════════════════════════
+     BLOQUE 1 — MESOPOTAMIA Y HAMMURABI
+══════════════════════════════════════════════ -->
+<div class="bloque active" id="b1">
+
+  <!-- Galería imágenes -->
+  <div class="img-grid col-3">
+    <div class="img-wrap">
+      <img src="hammurabi1.jpg" alt="Mapa de Babilonia en tiempos de Hammurabi"
+           onclick="abrirLB(this.src,'Babylonia at the time of Hammurabi')" style="cursor:zoom-in">
+      <div class="img-credit">
+        Mapa de Babilonia (ca. 1792–1750 a.C.) · <em>MapMaster</em>, 26 abr. 2012 ·
+        <a href="https://commons.wikimedia.org/wiki/File:Hammurabi%27s_Babylonia_1.svg" target="_blank" rel="noopener">CC BY-SA 3.0</a>
+      </div>
+    </div>
+    <div class="img-wrap">
+      <img src="hammurabi2.jpg" alt="Estela del Código de Hammurabi — relieve superior"
+           onclick="abrirLB(this.src,'Estela del Código de Hammurabi — Louvre')" style="cursor:zoom-in">
+      <div class="img-credit">
+        Estela del Código de Hammurabi (detalle) · <em>Mbztv</em>, 26 abr. 2012 ·
+        <a href="https://commons.wikimedia.org/wiki/File:Louvre_-_Hammurabi%27s_Code.jpg" target="_blank" rel="noopener">CC BY-SA 3.0</a>
+      </div>
+    </div>
+    <div class="img-wrap">
+      <img src="hammurabi3.png" alt="Inscripción cuneiforme de la estela"
+           onclick="abrirLB(this.src,'Texto cuneiforme del Código de Hammurabi')" style="cursor:zoom-in">
+      <div class="img-credit">
+        Texto cuneiforme del Código · <em>ctj71081</em>, 24 jun. 2021 ·
+        <a href="https://commons.wikimedia.org/wiki/File:Code_of_Hammurabi_cuneiform_script.jpg" target="_blank" rel="noopener">CC BY-SA 4.0</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Apunte 1 -->
+  <div class="apunte">
+    <div class="apunte-title">🏛️ Mesopotamia: la tierra entre dos ríos</div>
+    <p>Mesopotamia —del griego «tierra entre ríos»— es la región comprendida entre el <strong>Tigris y el Éufrates</strong>, en lo que hoy es principalmente Irak. Es una de las primeras civilizaciones de la historia: aquí surgieron la escritura cuneiforme, las ciudades, los códigos legales y las primeras formas de estado organizado.</p>
+    <p>Hacia el <strong>1792 a.C.</strong>, el rey <strong>Hammurabi</strong> accedió al trono de Babilonia. En pocas décadas convirtió un pequeño reino en el <strong>primer gran imperio</strong> de Mesopotamia, unificando las ciudades del Tigris y el Éufrates bajo una sola autoridad política y legal. Su capital, <strong>Babilonia</strong>, se convirtió en el centro político y cultural más importante del mundo antiguo.</p>
+    <p>Observa el mapa: la zona más oscura muestra la extensión del reino en 1792 a.C. cuando Hammurabi llegó al poder; la más clara muestra su expansión máxima en 1750 a.C. al final de su reinado. Localiza el Tigris, el Éufrates, Babilonia y las ciudades de la región.</p>
+  </div>
+
+  <!-- Act. 1 — VF Mesopotamia -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 1 · Bloque 1</span>
+      <h3>Verdadero o Falso — Mesopotamia y Hammurabi</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Lee cada afirmación y decide si es verdadera o falsa. Después pulsa <em>Comprobar</em> para ver la explicación.</p>
+      <div class="vf-list" id="vf1-list"></div>
+      <div class="feedback" id="fb-vf1"></div>
+    </div>
+    <div class="act-footer">
+      <button class="btn-check" onclick="comprobarVF('vf1')">Comprobar</button>
+      <button class="btn-reset" onclick="resetVF('vf1')">Reiniciar</button>
+      <span class="score-badge" id="sc-vf1">—</span>
+    </div>
+  </div>
+
+  <!-- Apunte 2 -->
+  <div class="apunte az">
+    <div class="apunte-title">📜 La estela: soporte, escritura e imagen</div>
+    <p>El Código de Hammurabi está grabado en una <strong>estela de diorita negra</strong> de 2,25 metros de altura, fechada alrededor del <strong>1754 a.C.</strong> La diorita es una roca volcánica extremadamente dura, elegida deliberadamente para garantizar la permanencia del texto. Hoy se conserva en el <strong>Museo del Louvre</strong> de París, donde fue trasladada tras ser descubierta en la ciudad persa de Susa en 1901.</p>
+    <p>En la parte superior de la estela hay un <strong>relieve esculpido</strong> que muestra a Hammurabi de pie ante el dios del sol <strong>Shamash</strong>, que le entrega los símbolos del poder y la justicia. La imagen no es decorativa: afirma que el código tiene <strong>origen divino</strong> y que el rey actúa como intermediario entre los dioses y los seres humanos.</p>
+    <p>Debajo del relieve, las <strong>282 leyes</strong> están inscritas en escritura <strong>cuneiforme</strong> (del latín <em>cuneus</em>, cuña), el sistema de escritura más antiguo del mundo, que consiste en marcas en forma de cuña realizadas con un punzón sobre tablillas de arcilla o, en este caso, talladas sobre piedra.</p>
+  </div>
+
+  <!-- Act. 2 — Matching estela -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 2 · Bloque 1</span>
+      <h3>Empareja — Elementos de la estela y su significado</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Haz clic en un elemento de la izquierda y luego en su significado correcto a la derecha.</p>
+      <div class="match-wrap">
+        <div class="match-col">
+          <div class="match-col-title">Elemento</div>
+          <div id="mc-left-m1"></div>
+        </div>
+        <div class="match-col">
+          <div class="match-col-title">Significado</div>
+          <div id="mc-right-m1"></div>
+        </div>
+      </div>
+      <div class="feedback" id="fb-m1"></div>
+    </div>
+    <div class="act-footer">
+      <span class="score-badge" id="sc-m1">—</span>
+      <span style="font-family:'Space Mono',monospace;font-size:.65rem;color:var(--sub)">Los pares correctos se fijan en verde</span>
+    </div>
+  </div>
+
+  <!-- Vídeo -->
+  <div class="apunte or" style="margin-bottom:14px">
+    <div class="apunte-title">🎬 Vídeo: El Código de Hammurabi en contexto</div>
+    <p>Antes de continuar, ve este vídeo que contextualiza el Código de Hammurabi. Presta atención especialmente a la parte que habla de la situación legal de las mujeres en Mesopotamia: la necesitarás en el Bloque 3.</p>
+  </div>
+  <div class="video-wrap">
+    <iframe src="https://www.youtube.com/embed/JO9YxZYd0qY" title="El Código de Hammurabi"
+      frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+
+  <!-- Act. 3 — Cloze geografía -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 3 · Bloque 1</span>
+      <h3>Completa el texto — Mesopotamia y su geografía</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Escribe la palabra correcta en cada hueco. Fíjate en el contexto de cada frase.</p>
+      <div class="cloze-text" id="cloze1-text"></div>
+      <div class="feedback" id="fb-cloze1"></div>
+    </div>
+    <div class="act-footer">
+      <button class="btn-check" onclick="comprobarCloze('cloze1')">Comprobar</button>
+      <button class="btn-reset" onclick="resetCloze('cloze1')">Reiniciar</button>
+      <span class="score-badge" id="sc-cloze1">—</span>
+    </div>
+  </div>
+
+</div><!-- /bloque 1 -->
+
+<!-- ══════════════════════════════════════════════
+     BLOQUE 2 — EL CÓDIGO: ESTRUCTURA Y LEYES
+══════════════════════════════════════════════ -->
+<div class="bloque" id="b2">
+
+  <!-- Apunte 1 -->
+  <div class="apunte">
+    <div class="apunte-title">⚖️ ¿Qué es un código legal?</div>
+    <p>Un <strong>código legal</strong> es un conjunto sistemático de leyes escritas que regulan la vida en sociedad. El de Hammurabi es uno de los más <strong>antiguos y completos</strong> que se conservan: consta de <strong>282 leyes</strong> que cubren temas tan variados como el comercio, los salarios, el matrimonio, el divorcio, la herencia, la propiedad, los delitos y las penas.</p>
+    <p>Muchas leyes siguen el principio del <strong>talión</strong>: «ojo por ojo, diente por diente». Esto significa que la pena debe ser proporcional al daño causado. Sin embargo, esta proporcionalidad no era igual para todos: las penas variaban enormemente según la <strong>clase social</strong> del infractor y de la víctima, y según el <strong>género</strong>. Un hombre libre, un esclavo y una mujer no recibían el mismo trato ante la misma situación.</p>
+    <p>El código también establecía tres <strong>clases sociales</strong> con derechos distintos: los <em>awilum</em> (hombres libres de clase alta), los <em>mushkenum</em> (personas libres de clase baja) y los <em>wardum</em> (esclavos). Las mujeres no formaban una clase social aparte, pero su posición dependía de su relación con un hombre (padre, esposo o propietario).</p>
+  </div>
+
+  <!-- Act. 4 — Elección múltiple estructura -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 4 · Bloque 2</span>
+      <h3>Elige la respuesta correcta — El Código y sus principios</h3>
+    </div>
+    <div class="act-body">
+      <div id="mc-b2-4"></div>
+      <div class="feedback" id="fb-b2-4"></div>
+    </div>
+    <div class="act-footer">
+      <button class="btn-check" onclick="comprobarMC('b2-4')">Comprobar</button>
+      <button class="btn-reset" onclick="resetMC('b2-4')">Reiniciar</button>
+      <span class="score-badge" id="sc-b2-4">—</span>
+    </div>
+  </div>
+
+  <!-- Apunte 2 — Leyes seleccionadas -->
+  <div class="apunte az">
+    <div class="apunte-title">📋 Leyes seleccionadas del Código</div>
+    <p>El siguiente cuadro muestra una selección de leyes representativas. Léelas con atención: las necesitarás para las actividades del Bloque 3.</p>
+    <table class="pergamino-tabla" style="margin-top:12px">
+      <tr><th>Ley</th><th>Texto</th><th>Tema</th></tr>
+      <tr><td class="ley-num">§1</td><td>Si un ciudadano acusa a otro de homicidio y no lo puede probar, el acusador será ejecutado.</td><td>Justicia / Calumnias</td></tr>
+      <tr><td class="ley-num">§22</td><td>Si un ciudadano comete un robo y es aprehendido, ese ciudadano será ejecutado.</td><td>Propiedad</td></tr>
+      <tr><td class="ley-num">§117</td><td>Si una deuda obliga a alguien a vender a su esposa, su hijo o su hija, prestarán servicio durante tres años; en el cuarto año serán libres.</td><td>Deuda / Familia</td></tr>
+      <tr><td class="ley-num">§128</td><td>Si un ciudadano toma esposa y no extiende contrato, esa mujer no es su esposa legal.</td><td>Matrimonio</td></tr>
+      <tr><td class="ley-num">§138</td><td>Si un ciudadano quiere divorciarse de su esposa principal que no le ha dado hijos, le dará el monto de su precio de compra y le devolverá la dote; entonces podrá divorciarse.</td><td>Divorcio</td></tr>
+      <tr><td class="ley-num">§141</td><td>Si la esposa de un ciudadano que vive en la casa de su esposo decide abandonarla, dilapida su patrimonio, descuida a su esposo y es convicta de ello, si su esposo anuncia que se divorcia de ella, podrá divorciarse; no se le dará nada para su viaje de regreso a la casa de su padre.</td><td>Divorcio / Mujer</td></tr>
+      <tr><td class="ley-num">§142</td><td>Si la mujer aborrece a su marido y declara «no me tocarás», el caso será investigado en el barrio y si ha guardado su castidad y no tiene culpa, pero su marido anda errante y la humilla, esa mujer no tiene culpa; podrá recoger su dote y volver a casa de su padre.</td><td>Divorcio / Mujer</td></tr>
+      <tr><td class="ley-num">§148</td><td>Si un ciudadano toma una esposa y le sobreviene una enfermedad, si desea casarse con otra esposa, podrá hacerlo; sin embargo, no divorciará a su esposa enferma; ella vivirá en la casa que él construyó y él la mantendrá mientras viva.</td><td>Matrimonio / Salud</td></tr>
+      <tr><td class="ley-num">§195</td><td>Si un hijo golpea a su padre, le cortarán la mano.</td><td>Familia / Talión</td></tr>
+      <tr><td class="ley-num">§196</td><td>Si un ciudadano destruye el ojo de otro ciudadano, destruirán el suyo.</td><td>Talión</td></tr>
+      <tr><td class="ley-num">§209</td><td>Si un ciudadano golpea a la hija de otro ciudadano y la hace abortar, pagará diez siclos de plata por el feto.</td><td>Mujer / Cuerpo</td></tr>
+      <tr><td class="ley-num">§210</td><td>Si esa mujer muere, matarán a la hija del ciudadano.</td><td>Talión / Género</td></tr>
+    </table>
+  </div>
+
+  <!-- Act. 5 — Ordenar principios jurídicos -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 5 · Bloque 2</span>
+      <h3>Ordena — Características del Código de más a menos igualitaria</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Haz clic en el orden que consideras correcto: de la característica <strong>más favorable a la igualdad</strong> a la <strong>más discriminatoria</strong>. Después comprueba y lee las explicaciones.</p>
+      <div class="sort-list" id="sort-b2-5"></div>
+      <div class="feedback" id="fb-b2-5"></div>
+    </div>
+    <div class="act-footer">
+      <button class="btn-check" onclick="comprobarSort('b2-5')">Comprobar</button>
+      <button class="btn-reset" onclick="resetSort('b2-5')">Reiniciar</button>
+      <span class="score-badge" id="sc-b2-5">—</span>
+    </div>
+  </div>
+
+  <!-- Act. 6 — Cloze leyes -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 6 · Bloque 2</span>
+      <h3>Completa — Conceptos clave del Código</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Completa el texto con los términos correctos.</p>
+      <div class="cloze-text" id="cloze2-text"></div>
+      <div class="feedback" id="fb-cloze2"></div>
+    </div>
+    <div class="act-footer">
+      <button class="btn-check" onclick="comprobarCloze('cloze2')">Comprobar</button>
+      <button class="btn-reset" onclick="resetCloze('cloze2')">Reiniciar</button>
+      <span class="score-badge" id="sc-cloze2">—</span>
+    </div>
+  </div>
+
+</div><!-- /bloque 2 -->
+
+<!-- ══════════════════════════════════════════════
+     BLOQUE 3 — LA MUJER EN EL CÓDIGO
+══════════════════════════════════════════════ -->
+<div class="bloque" id="b3">
+
+  <!-- Apunte 1 -->
+  <div class="apunte">
+    <div class="apunte-title">👩 La mujer en la sociedad mesopotámica</div>
+    <p>En la sociedad babilónica, la mujer era considerada legalmente <strong>dependiente</strong> de un hombre: primero de su padre y, tras el matrimonio, de su esposo. Sin embargo, la situación era más compleja que una simple subordinación absoluta. Las mujeres podían <strong>poseer bienes</strong>, gestionar su dote, ejercer ciertos oficios y, en algunos casos, divorciarse o acudir a los tribunales.</p>
+    <p>Lo que el Código de Hammurabi revela es un sistema <strong>profundamente desigual pero internamente regulado</strong>: no se trata de que las mujeres no existieran jurídicamente, sino de que sus derechos eran sistemáticamente inferiores a los de los hombres y dependían de su clase social, estado civil y comportamiento.</p>
+    <p>Algunos datos llamativos: una mujer podía ser vendida para pagar las deudas de su marido (§117), pero también podía recuperar su dote y volver a casa de su padre si el marido la maltrataba (§142). Las penas por delitos contra las mujeres se calculaban muchas veces en función de la <strong>clase social del hombre</strong> al que pertenecían, no en función del daño sufrido por ellas.</p>
+  </div>
+
+  <!-- WCDI -->
+  <div class="wcdi-bloque">
+    <div class="wcdi-badge">💜 We Can Do It</div>
+    <h3>Mujeres que estudian las mujeres del pasado</h3>
+    <p>La investigación sobre el papel de las mujeres en las sociedades antiguas ha sido durante siglos ignorada o minimizada. Hoy, historiadoras e investigadoras recuperan esas voces silenciadas y nos ayudan a entender mejor el pasado.</p>
+    <div class="wcdi-cards">
+      <div class="wcdi-card" onclick="this.classList.toggle('open')">
+        <div class="nombre">Karen Rhea Nemet-Nejat</div>
+        <div class="hint">Toca para descubrir</div>
+        <div class="back">Primera mujer en obtener el doctorado en Near Eastern Studies en la Universidad de Columbia. Profesora en Yale. Su obra <em>Daily Life in Ancient Mesopotamia</em> (1998) incluye un análisis detallado del papel de las mujeres en la familia, el trabajo y la vida jurídica de Babilonia.
+          <a href="https://archive.org/details/dailylifeinancie0000neme" target="_blank" rel="noopener">Ver su obra en Internet Archive →</a>
+        </div>
+      </div>
+      <div class="wcdi-card" onclick="this.classList.toggle('open')">
+        <div class="nombre">Edith Porada</div>
+        <div class="hint">Toca para descubrir</div>
+        <div class="back">Arqueóloga austríaco-estadounidense (1912–1994), profesora en Columbia y pionera en el estudio de los sellos cilíndricos mesopotámicos. Elegida miembro de la American Academy of Arts and Sciences (1969). Demostró que el arte glíptico podía reconstruir la vida social y religiosa de Babilonia.
+          <a href="https://en.wikipedia.org/wiki/Edith_Porada" target="_blank" rel="noopener">Ver en Wikipedia →</a>
+        </div>
+      </div>
+      <div class="wcdi-card" onclick="this.classList.toggle('open')">
+        <div class="nombre">Agnès Garcia-Ventura</div>
+        <div class="hint">Toca para descubrir</div>
+        <div class="back">Investigadora del Institut del Pròxim Orient Antic (IPOA) de la Universitat de Barcelona. Coeditora de <em>Las mujeres en el Oriente cuneiforme</em> (UAH, 2018), la primera obra en español sobre el papel de las mujeres en Mesopotamia a partir de fuentes cuneiformes.
+          <a href="https://portalrecerca.uab.cat/es/persons/agn%C3%A3%CB%86s-garcia-ventura/" target="_blank" rel="noopener">Ver el IPOA en la UB →</a>
+        </div>
+      </div>
+    </div>
+    <div class="flip-hint">Toca cada tarjeta para saber más</div>
+  </div>
+
+  <!-- Act. 7 — Análisis de leyes -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 7 · Bloque 3</span>
+      <h3>Analiza las leyes — La mujer en el Código de Hammurabi</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Lee cada ley y responde a la pregunta. Puedes consultar la tabla de leyes del Bloque 2.</p>
+      <div id="mc-b3-7"></div>
+      <div class="feedback" id="fb-b3-7"></div>
+    </div>
+    <div class="act-footer">
+      <button class="btn-check" onclick="comprobarMC('b3-7')">Comprobar</button>
+      <button class="btn-reset" onclick="resetMC('b3-7')">Reiniciar</button>
+      <span class="score-badge" id="sc-b3-7">—</span>
+    </div>
+  </div>
+
+  <!-- Apunte 2 — Pasado y presente -->
+  <div class="apunte vd">
+    <div class="apunte-title">🔄 Del pasado al presente: ¿hemos avanzado?</div>
+    <p>Estudiar el Código de Hammurabi no es solo conocer el pasado: es entender <strong>cómo se construyen y legitiman las desigualdades</strong> en una sociedad. En Mesopotamia, la discriminación hacia las mujeres no era el resultado de la ignorancia o la crueldad individual, sino de un <strong>sistema legal y social que la convertía en norma</strong>.</p>
+    <p>Desde entonces, los derechos de las mujeres han avanzado enormemente en muchos países, pero la lucha no está terminada. En España, la <strong>Constitución de 1978</strong> reconoce la igualdad ante la ley de hombres y mujeres. La <strong>Ley de Igualdad de 2007</strong> y la <strong>Ley contra la Violencia de Género de 2004</strong> son pasos importantes, pero los datos actuales sobre brecha salarial, violencia machista y desigualdad en el ámbito doméstico muestran que la igualdad real todavía está pendiente.</p>
+    <p>Comparar el pasado con el presente no sirve para decir «ahora estamos bien» sino para preguntarnos: <strong>¿qué sistemas legales o sociales actuales seguimos normalizando que las generaciones futuras considerarán injustos?</strong></p>
+  </div>
+
+  <!-- Act. 8 — Matching pasado-presente -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 8 · Bloque 3</span>
+      <h3>Empareja — Ley de Hammurabi y su equivalente actual</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Une cada situación del Código de Hammurabi con su equivalente o contraste en la legislación española actual.</p>
+      <div class="match-wrap">
+        <div class="match-col">
+          <div class="match-col-title">Código de Hammurabi</div>
+          <div id="mc-left-m2"></div>
+        </div>
+        <div class="match-col">
+          <div class="match-col-title">España, siglo XXI</div>
+          <div id="mc-right-m2"></div>
+        </div>
+      </div>
+      <div class="feedback" id="fb-m2"></div>
+    </div>
+    <div class="act-footer">
+      <span class="score-badge" id="sc-m2">—</span>
+      <span style="font-family:'Space Mono',monospace;font-size:.65rem;color:var(--sub)">Los pares correctos se fijan en verde</span>
+    </div>
+  </div>
+
+  <!-- Act. 9 — Reflexión final (texto libre) -->
+  <div class="actividad">
+    <div class="act-header">
+      <span class="act-num">Act. 9 · Bloque 3</span>
+      <h3>Reflexión — Tu pergamino y las conexiones con el presente</h3>
+    </div>
+    <div class="act-body">
+      <p class="instruccion">Responde a estas preguntas con tus propias palabras. Las usarás como punto de partida para diseñar tu pergamino. No hay respuestas correctas o incorrectas: lo que importa es que argumentes.</p>
+      <div class="reflexion-q" style="margin-bottom:20px">
+        <label style="font-family:'Cinzel',serif;font-size:.92rem;font-weight:600;color:var(--tinta);display:block;margin-bottom:8px;line-height:1.4">
+          <span style="font-family:'Space Mono',monospace;font-size:.68rem;color:var(--or);margin-right:8px">01 —</span>
+          Elige una ley del Código de Hammurabi sobre las mujeres. ¿Qué nos dice sobre cómo esa sociedad entendía el papel de la mujer? ¿Hay alguna equivalencia con situaciones actuales?
+        </label>
+        <textarea class="obs-area" id="ref1" maxlength="600" placeholder="Escribe aquí tu respuesta…" oninput="actualizarChars(this,'chars1')"></textarea>
+        <div class="chars-left" id="chars1">600 caracteres restantes</div>
+      </div>
+      <div class="reflexion-q" style="margin-bottom:20px">
+        <label style="font-family:'Cinzel',serif;font-size:.92rem;font-weight:600;color:var(--tinta);display:block;margin-bottom:8px;line-height:1.4">
+          <span style="font-family:'Space Mono',monospace;font-size:.68rem;color:var(--or);margin-right:8px">02 —</span>
+          ¿Crees que el Código de Hammurabi supuso un avance o un retroceso para las mujeres respecto a lo que podría existir antes de que hubiera leyes escritas? Argumenta tu respuesta.
+        </label>
+        <textarea class="obs-area" id="ref2" maxlength="600" placeholder="Escribe aquí tu respuesta…" oninput="actualizarChars(this,'chars2')"></textarea>
+        <div class="chars-left" id="chars2">600 caracteres restantes</div>
+      </div>
+      <div class="reflexion-q">
+        <label style="font-family:'Cinzel',serif;font-size:.92rem;font-weight:600;color:var(--tinta);display:block;margin-bottom:8px;line-height:1.4">
+          <span style="font-family:'Space Mono',monospace;font-size:.68rem;color:var(--or);margin-right:8px">03 —</span>
+          En tu pergamino, ¿qué mensaje sobre igualdad quieres transmitir? Describe brevemente qué incluirás y por qué.
+        </label>
+        <textarea class="obs-area" id="ref3" maxlength="600" placeholder="Escribe aquí tu respuesta…" oninput="actualizarChars(this,'chars3')"></textarea>
+        <div class="chars-left" id="chars3">600 caracteres restantes</div>
+      </div>
+      <div class="feedback" id="fb-ref"></div>
+    </div>
+    <div class="act-footer">
+      <button class="btn-check vd" onclick="guardarRefs()">Guardar reflexiones</button>
+      <span class="score-badge" id="sc-ref">—</span>
+    </div>
+  </div>
+
+</div><!-- /bloque 3 -->
+
+<!-- MODAL ALUMNO -->
+<div class="inf-overlay" id="alum-overlay">
+  <div class="inf-modal">
+    <div class="inf-mh">
+      <h2>▣ Código de entrega para la docente</h2>
+      <button class="inf-mclose" onclick="cerrarModalAlumno()">✕</button>
+    </div>
+    <div class="inf-mbody">
+      <div class="inf-aviso" id="alum-aviso">⚠️ Hay actividades sin completar. Puedes generar el código igualmente.</div>
+      <div class="inf-resumen" id="alum-resumen"></div>
+      <div class="ini-wrap">
+        <label>INICIALES:</label>
+        <input class="ini-input" type="text" id="alum-ini" placeholder="A.M.G." maxlength="10">
+      </div>
+      <table class="inf-tabla"><thead><tr><th>Bloque</th><th>Actividad</th><th>Estado</th><th>Nota</th></tr></thead>
+        <tbody id="alum-tbody"></tbody></table>
+      <div class="codigo-box" id="alum-codigo"></div>
+    </div>
+    <div class="inf-mfooter">
+      <button class="btn-inf prim" onclick="generarCodigo()">🔑 Generar código</button>
+      <button class="btn-inf cop" id="btn-copiar" onclick="copiarCodigo()">📋 Copiar</button>
+      <span class="copy-ok" id="copy-ok">✓ Copiado</span>
+      <button class="btn-inf sec" onclick="cerrarModalAlumno()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DOCENTE -->
+<div class="inf-overlay" id="doc-overlay">
+  <div class="inf-modal">
+    <div class="inf-mh doc">
+      <h2>🔐 Panel docente — Lectura de informe</h2>
+      <button class="inf-mclose" onclick="cerrarModalDocente()">✕</button>
+    </div>
+    <div class="inf-mbody">
+      <p style="font-size:.85rem;color:var(--sub);margin-bottom:12px">Pega el código del alumno/a y pulsa <strong>Decodificar</strong>.</p>
+      <textarea class="doc-paste" id="doc-paste" placeholder="Pega aquí el código Base64…"></textarea>
+      <button class="btn-inf prim doc" onclick="decodificarInforme()">🔍 Decodificar</button>
+      <div class="doc-resultado" id="doc-resultado">
+        <div class="doc-alumno" id="doc-alumno-card"></div>
+        <table class="inf-tabla">
+          <thead><tr><th>Bloque</th><th>Actividad</th><th>Estado</th><th>Nota / Respuesta</th></tr></thead>
+          <tbody id="doc-tbody"></tbody>
+        </table>
+        <div class="doc-refs" id="doc-refs" style="display:none">
+          <h4>✍️ Reflexiones del alumno/a</h4>
+          <div id="doc-refs-content"></div>
+        </div>
+      </div>
+      <div class="feedback" id="doc-error"></div>
+    </div>
+    <div class="inf-mfooter">
+      <button class="btn-inf sec" onclick="cerrarModalDocente()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lb" onclick="cerrarLB()">
+  <button id="lb-close" onclick="cerrarLB()">✕</button>
+  <img id="lb-img" src="" alt="">
+  <div id="lb-cap"></div>
+</div>
+
+</div><!-- /page-wrap -->
+<script>
+// ══════════════════════════════════════════════════════════
+// ESTADO GLOBAL
+// ══════════════════════════════════════════════════════════
+var STATE = {
+  b1: { vf1:null, m1:null, cloze1:null },
+  b2: { 'b2-4':null, 'b2-5':null, cloze2:null },
+  b3: { 'b3-7':null, m2:null, ref:null }
+};
+
+// ══════════════════════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════════════════════
+function mostrarBloque(id, btn) {
+  document.querySelectorAll('.bloque').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.bloque-tab').forEach(function(t){ t.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// ══════════════════════════════════════════════════════════
+// PROGRESS
+// ══════════════════════════════════════════════════════════
+function updateProgress() {
+  var keys = [
+    STATE.b1.vf1, STATE.b1.m1, STATE.b1.cloze1,
+    STATE.b2['b2-4'], STATE.b2['b2-5'], STATE.b2.cloze2,
+    STATE.b3['b3-7'], STATE.b3.m2, STATE.b3.ref
+  ];
+  var done = keys.filter(Boolean).length;
+  var bar = document.getElementById('global-progress');
+  if (bar) bar.style.width = Math.round(done / keys.length * 100) + '%';
+}
+
+// ══════════════════════════════════════════════════════════
+// LIGHTBOX
+// ══════════════════════════════════════════════════════════
+function abrirLB(src, cap) {
+  var lb = document.getElementById('lb');
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-cap').textContent = cap || '';
+  lb.classList.add('open');
+}
+function cerrarLB() { document.getElementById('lb').classList.remove('open'); }
+
+// ══════════════════════════════════════════════════════════
+// HELPERS UI
+// ══════════════════════════════════════════════════════════
+function showFB(id, tipo, txt) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'feedback ' + tipo;
+  el.textContent = txt;
+}
+function setBadge(id, c, t) {
+  var el = document.getElementById(id); if (!el) return;
+  var pct = Math.round(c/t*100);
+  el.textContent = c+'/'+t+' — '+pct+'%';
+  el.style.background = pct===100?'var(--ok-bg)':pct>=60?'var(--par-bg)':'var(--mal-bg)';
+  el.style.color = pct===100?'var(--ok-tx)':pct>=60?'var(--par-tx)':'var(--mal-tx)';
+}
+function actualizarChars(el, id) {
+  var r = 600 - el.value.length;
+  var d = document.getElementById(id);
+  if (d) d.textContent = r + ' caracteres restantes';
+}
+
+// ══════════════════════════════════════════════════════════
+// VF
+// ══════════════════════════════════════════════════════════
+var vfData = {
+  vf1: [
+    { txt:'Mesopotamia significa "tierra entre dos ríos" en griego.', r:'V',
+      exp:'Correcto. El término proviene del griego <em>mesos</em> (medio) y <em>potamos</em> (río): tierra entre el Tigris y el Éufrates.' },
+    { txt:'Hammurabi fue el primer rey de Mesopotamia.', r:'F',
+      exp:'Incorrecto. Hammurabi fue rey de Babilonia (1792–1750 a.C.), pero hubo muchos reyes y civilizaciones antes en Mesopotamia, como los sumerios y los acadios.' },
+    { txt:'La estela del Código de Hammurabi está hoy en el Museo del Louvre de París.', r:'V',
+      exp:'Correcto. Fue descubierta en 1901 en Susa (actual Irán) y trasladada al Louvre, donde se conserva en la actualidad.' },
+    { txt:'El Código de Hammurabi tiene 500 leyes.', r:'F',
+      exp:'Incorrecto. El Código contiene 282 leyes.' },
+    { txt:'El relieve superior de la estela muestra a Hammurabi recibiendo el poder del dios Shamash.', r:'V',
+      exp:'Correcto. La imagen sirve para legitimar el código: afirma que las leyes tienen origen divino y que Hammurabi actúa como intermediario entre los dioses y los seres humanos.' },
+  ]
+};
+var vfSel = {};
+
+function initVF(id) {
+  var data = vfData[id]; if (!data) return;
+  var cont = document.getElementById(id+'-list'); if (!cont) return;
+  cont.innerHTML = '';
+  vfSel[id] = {};
+  data.forEach(function(d, i) {
+    var div = document.createElement('div'); div.className = 'vf-item'; div.id = id+'-item-'+i;
+    div.innerHTML = '<div class="vf-text">'+d.txt+'<div class="vf-explain"></div></div>'
+      +'<div class="vf-btns">'
+      +'<button class="vf-btn" id="'+id+'-btn-'+i+'-V" onclick="selVF(\''+id+'\','+i+',\'V\')">V</button>'
+      +'<button class="vf-btn" id="'+id+'-btn-'+i+'-F" onclick="selVF(\''+id+'\','+i+',\'F\')">F</button>'
+      +'</div>';
+    cont.appendChild(div);
+  });
+}
+
+function selVF(id, idx, val) {
+  vfSel[id][idx] = val;
+  var data = vfData[id];
+  document.querySelectorAll('#'+id+'-item-'+idx+' .vf-btn').forEach(function(b){ b.classList.remove('v-sel','f-sel'); });
+  var btn = document.getElementById(id+'-btn-'+idx+'-'+val);
+  if (btn) btn.classList.add(val==='V'?'v-sel':'f-sel');
+}
+
+function comprobarVF(id) {
+  var data = vfData[id]; var correct = 0;
+  data.forEach(function(d, i) {
+    var item = document.getElementById(id+'-item-'+i);
+    var sel = vfSel[id] && vfSel[id][i];
+    var expl = item.querySelector('.vf-explain');
+    expl.innerHTML = d.exp;
+    if (!sel) { item.classList.remove('correct','wrong'); return; }
+    var ok = sel === d.r;
+    if (ok) { correct++; item.classList.add('correct'); item.classList.remove('wrong'); }
+    else    { item.classList.add('wrong'); item.classList.remove('correct'); }
+  });
+  var total = data.length;
+  STATE.b1[id] = { correct: correct, total: total };
+  setBadge('sc-'+id, correct, total);
+  showFB('fb-'+id, correct===total?'ok':correct>=3?'partial':'fail',
+    correct+'/'+total+' correctas.'+(correct===total?' ¡Perfecto!':' Revisa las marcadas en rojo.'));
+  updateProgress();
+}
+
+function resetVF(id) {
+  vfSel[id] = {};
+  var data = vfData[id];
+  data.forEach(function(_,i){
+    var item = document.getElementById(id+'-item-'+i);
+    item.classList.remove('correct','wrong');
+    item.querySelectorAll('.vf-btn').forEach(function(b){ b.classList.remove('v-sel','f-sel'); });
+    item.querySelector('.vf-explain').innerHTML = '';
+  });
+  document.getElementById('fb-'+id).className = 'feedback';
+  document.getElementById('sc-'+id).textContent = '—';
+  STATE.b1[id] = null; updateProgress();
+}
+
+// ══════════════════════════════════════════════════════════
+// MATCHING (reutilizable)
+// ══════════════════════════════════════════════════════════
+var matchData = {
+  m1: [
+    { left:'Diorita negra',       right:'Material elegido por su dureza para garantizar la permanencia' },
+    { left:'Relieve de Shamash',  right:'Afirma el origen divino de las leyes' },
+    { left:'Escritura cuneiforme',right:'Sistema de marcas en forma de cuña, el más antiguo del mundo' },
+    { left:'Principio del talión',right:'La pena debe ser proporcional al daño causado' },
+    { left:'Awilum',              right:'Hombre libre de clase alta en Babilonia' },
+  ],
+  m2: [
+    { left:'La mujer necesita permiso del marido para divorciarse (§138)',
+      right:'En España, cualquier persona puede pedir el divorcio sin alegar causa (Ley 2005)' },
+    { left:'Las penas por daños a la mujer dependen de la clase del agresor (§209–210)',
+      right:'La Ley contra la Violencia de Género protege a las mujeres independientemente del estatus social' },
+    { left:'La mujer puede ser vendida para pagar deudas (§117)',
+      right:'La Constitución Española prohíbe la esclavitud y protege la dignidad de la persona' },
+    { left:'El matrimonio requiere contrato para ser legal (§128)',
+      right:'El matrimonio civil o religioso tiene efectos legales; la unión de hecho también tiene reconocimiento' },
+  ]
+};
+var matchSel = {};
+var matchDone = {};
+
+function initMatch(id) {
+  var data = matchData[id]; if (!data) return;
+  matchSel[id] = { left: null, der: null };
+  matchDone[id] = {};
+  var leftCont = document.getElementById('mc-left-'+id);
+  var rightCont = document.getElementById('mc-right-'+id);
+  if (!leftCont || !rightCont) return;
+  leftCont.innerHTML = ''; rightCont.innerHTML = '';
+  // Barajar derecha
+  var rightShuffled = data.map(function(_,i){ return i; }).sort(function(){ return Math.random()-.5; });
+  data.forEach(function(d, i) {
+    var el = document.createElement('div');
+    el.className = 'match-item'; el.id = 'mi-left-'+id+'-'+i;
+    el.textContent = d.left;
+    el.onclick = function(){ selMatch(id,'left',i); };
+    leftCont.appendChild(el);
+  });
+  rightShuffled.forEach(function(ri) {
+    var el = document.createElement('div');
+    el.className = 'match-item'; el.id = 'mi-right-'+id+'-'+ri;
+    el.textContent = matchData[id][ri].right;
+    el.onclick = function(){ selMatch(id,'right',ri); };
+    rightCont.appendChild(el);
+  });
+  document.getElementById('sc-'+id).textContent = '—';
+  document.getElementById('fb-'+id).className = 'feedback';
+}
+
+function selMatch(id, side, idx) {
+  if (matchDone[id][idx+'-'+side]) return;
+  var other = side==='left' ? 'right' : 'left';
+  // Deseleccionar mismo lado
+  document.querySelectorAll('#mc-'+side+'-'+id+' .match-item.selected').forEach(function(el){ el.classList.remove('selected'); });
+  matchSel[id][side] = idx;
+  document.getElementById('mi-'+side+'-'+id+'-'+idx).classList.add('selected');
+  // Evaluar si tenemos ambos lados
+  if (matchSel[id]['left'] !== null && matchSel[id]['right'] !== null) {
+    var li = matchSel[id]['left'], ri = matchSel[id]['right'];
+    var elL = document.getElementById('mi-left-'+id+'-'+li);
+    var elR = document.getElementById('mi-right-'+id+'-'+ri);
+    if (li === ri) {
+      // Par correcto
+      [elL,elR].forEach(function(el){ el.classList.remove('selected'); el.classList.add('matched'); });
+      matchDone[id][li+'-left'] = true; matchDone[id][ri+'-right'] = true;
+    } else {
+      // Incorrecto — flash
+      [elL,elR].forEach(function(el){ el.classList.add('wrong-flash'); });
+      setTimeout(function(){
+        [elL,elR].forEach(function(el){ el.classList.remove('selected','wrong-flash'); });
+      }, 700);
+    }
+    matchSel[id] = { left: null, right: null };
+    // Comprobar si completado
+    var total = matchData[id].length;
+    var done = Object.keys(matchDone[id]).filter(function(k){ return k.endsWith('-left'); }).length;
+    if (done === total) {
+      var key = id === 'm1' ? 'b1' : 'b3';
+      STATE[key][id] = { correct: total, total: total };
+      setBadge('sc-'+id, total, total);
+      showFB('fb-'+id, 'ok', '✓ ¡Todos los pares correctos!');
+      updateProgress();
+    } else {
+      document.getElementById('sc-'+id).textContent = done+'/'+total+' pares';
+    }
+  }
+}
+
+// ══════════════════════════════════════════════════════════
+// CLOZE
+// ══════════════════════════════════════════════════════════
+var clozeData = {
+  cloze1: {
+    parts: [
+      'Mesopotamia, que significa "tierra entre dos ',
+      { id:'c1a', ans:['ríos','rios'], ph:'_____' },
+      '" en griego, se encontraba entre el ',
+      { id:'c1b', ans:['Tigris'], ph:'______' },
+      ' y el ',
+      { id:'c1c', ans:['Éufrates','Eufrates'], ph:'________' },
+      '. Hammurabi accedió al trono de ',
+      { id:'c1d', ans:['Babilonia'], ph:'________' },
+      ' hacia el 1792 a.C. y convirtió un pequeño reino en el primer gran ',
+      { id:'c1e', ans:['imperio'], ph:'_______' },
+      ' de Mesopotamia. Su código legal consta de ',
+      { id:'c1f', ans:['282'], ph:'___' },
+      ' leyes y está grabado en una estela de diorita ',
+      { id:'c1g', ans:['negra'], ph:'_____' },
+      '.'
+    ],
+    stateKey: 'b1', stateAct: 'cloze1'
+  },
+  cloze2: {
+    parts: [
+      'El Código de Hammurabi sigue el principio del ',
+      { id:'c2a', ans:['talión'], ph:'_______' },
+      ': la pena debe ser proporcional al ',
+      { id:'c2b', ans:['daño'], ph:'____' },
+      ' causado. Sin embargo, las penas variaban según la clase ',
+      { id:'c2c', ans:['social'], ph:'______' },
+      ' y el ',
+      { id:'c2d', ans:['género'], ph:'______' },
+      '. Los hombres libres de clase alta se llamaban ',
+      { id:'c2e', ans:['awilum'], ph:'______' },
+      '. La mujer estaba legalmente ',
+      { id:'c2f', ans:['dependiente'], ph:'___________' },
+      ' de un hombre, primero de su padre y luego de su ',
+      { id:'c2g', ans:['esposo','marido'], ph:'______' },
+      '.'
+    ],
+    stateKey: 'b2', stateAct: 'cloze2'
+  }
+};
+
+function initCloze(id) {
+  var data = clozeData[id]; if (!data) return;
+  var cont = document.getElementById(id+'-text'); if (!cont) return;
+  cont.innerHTML = '';
+  data.parts.forEach(function(part) {
+    if (typeof part === 'string') {
+      cont.appendChild(document.createTextNode(part));
+    } else {
+      var inp = document.createElement('input');
+      inp.className = 'cloze-input';
+      inp.id = part.id; inp.placeholder = part.ph;
+      inp.style.minWidth = Math.max(80, part.ph.length * 9) + 'px';
+      cont.appendChild(inp);
+    }
+  });
+  document.getElementById('fb-'+id).className = 'feedback';
+  document.getElementById('sc-'+id).textContent = '—';
+}
+
+function comprobarCloze(id) {
+  var data = clozeData[id];
+  var blancos = data.parts.filter(function(p){ return typeof p === 'object'; });
+  var correct = 0;
+  blancos.forEach(function(b) {
+    var inp = document.getElementById(b.id); if (!inp) return;
+    var val = inp.value.trim().toLowerCase();
+    var ok = b.ans.some(function(a){ return a.toLowerCase() === val; });
+    inp.classList.remove('ok','fail');
+    inp.classList.add(ok ? 'ok' : 'fail');
+    if (ok) correct++;
+  });
+  var total = blancos.length;
+  STATE[data.stateKey][data.stateAct] = { correct: correct, total: total };
+  setBadge('sc-'+id, correct, total);
+  showFB('fb-'+id, correct===total?'ok':correct>=Math.ceil(total*.6)?'partial':'fail',
+    correct+'/'+total+' correctos.'+(correct===total?' ¡Perfecto!':' Los rojos tienen un error.'));
+  updateProgress();
+}
+
+function resetCloze(id) {
+  var data = clozeData[id];
+  var blancos = data.parts.filter(function(p){ return typeof p === 'object'; });
+  blancos.forEach(function(b){
+    var inp = document.getElementById(b.id); if (!inp) return;
+    inp.value = ''; inp.classList.remove('ok','fail');
+  });
+  document.getElementById('fb-'+id).className = 'feedback';
+  document.getElementById('sc-'+id).textContent = '—';
+  STATE[data.stateKey][data.stateAct] = null; updateProgress();
+}
+
+// ══════════════════════════════════════════════════════════
+// ELECCIÓN MÚLTIPLE
+// ══════════════════════════════════════════════════════════
+var mcData = {
+  'b2-4': [
+    { q:'¿Qué significa el principio del talión?',
+      ops:['El rey tiene derecho a castigar a cualquier ciudadano como quiera','La pena debe ser proporcional al daño causado','Las mujeres no pueden ser castigadas','Solo los esclavos reciben castigos físicos'],
+      ok:1, exp:'El talión establece proporcionalidad: "ojo por ojo, diente por diente". Sin embargo, en el Código de Hammurabi esta proporcionalidad variaba según la clase social y el género.' },
+    { q:'¿Cuántas clases sociales reconocía el Código de Hammurabi?',
+      ops:['Dos: libres y esclavos','Cuatro: nobles, sacerdotes, artesanos y esclavos','Tres: awilum, mushkenum y wardum','Una: todos eran iguales ante la ley'],
+      ok:2, exp:'El código reconocía tres clases: awilum (hombres libres de clase alta), mushkenum (personas libres de clase baja) y wardum (esclavos). Las mujeres no formaban una clase aparte.' },
+    { q:'¿Por qué se eligió la diorita para la estela?',
+      ops:['Era el material más barato disponible','Era de color dorado, símbolo real','Es una roca muy dura que garantiza la permanencia del texto','Era sagrada para el dios Shamash'],
+      ok:2, exp:'La diorita negra es una roca volcánica extremadamente dura, elegida deliberadamente para que el código resistiera el paso del tiempo.' },
+    { q:'¿Qué función tiene el relieve de Hammurabi con Shamash en la parte superior?',
+      ops:['Es solo decorativa, sin significado especial','Afirma el origen divino del código y legitima la autoridad del rey','Muestra cómo se aplicaban las leyes en los tribunales','Identifica al artista que esculpió la estela'],
+      ok:1, exp:'La imagen es una declaración política y religiosa: Hammurabi recibe el poder de Shamash, dios de la justicia, lo que convierte al código en mandato divino y hace imposible cuestionarlo.' },
+  ],
+  'b3-7': [
+    { q:'Según la ley §138, ¿quién tiene más facilidad para pedir el divorcio?',
+      ops:['La mujer, si ha cuidado bien el hogar','El hombre, que puede divorciarse devolviendo la dote','Ambos tienen los mismos derechos','Ninguno puede divorciarse'],
+      ok:1, exp:'La ley §138 permite al marido divorciarse devolviendo la dote. La mujer tiene posibilidades más limitadas y condicionadas a su comportamiento.' },
+    { q:'¿Qué revela la ley §209 sobre cómo el código trata el cuerpo de las mujeres?',
+      ops:['El cuerpo de la mujer se protege con las mismas leyes que el del hombre','El daño a la mujer se compensa económicamente al hombre al que pertenece, no a ella','Las mujeres reciben protección especial por ser madres','No hay leyes sobre el cuerpo de las mujeres'],
+      ok:1, exp:'La ley §209 establece que si alguien provoca un aborto a la hija de un ciudadano, paga una multa de plata. El daño económico va al padre, no a la mujer. Esto revela que su cuerpo era considerado propiedad del hombre.' },
+    { q:'La ley §142 permite a la mujer pedir el divorcio si el marido la maltrata. ¿Qué condición añade?',
+      ops:['Solo si tiene hijos','Solo si ella "ha guardado su castidad y no tiene culpa"','Solo si devuelve todos los bienes','No hay ninguna condición: puede divorciarse libremente'],
+      ok:1, exp:'La ley requiere que la mujer sea "intachable" moralmente para poder divorciarse. No basta con sufrir maltrato: debe además no tener ninguna conducta que se considere reprochable.' },
+    { q:'¿Qué conclusión puedes extraer sobre la posición legal de las mujeres en el Código de Hammurabi?',
+      ops:['Las mujeres tenían exactamente los mismos derechos que los hombres','Las mujeres no existían jurídicamente y no aparecen en ninguna ley','Las mujeres tenían ciertos derechos pero sistemáticamente inferiores a los de los hombres, dependientes del varón','Las mujeres de clase alta tenían más derechos que los hombres de clase baja'],
+      ok:2, exp:'El código reconoce a las mujeres jurídicamente pero su posición es sistemáticamente subordinada. Pueden poseer bienes, recibir dote y en algunos casos divorciarse, pero siempre con restricciones mayores que las de los hombres.' },
+  ]
+};
+var mcSel = {};
+var mcDone = {};
+
+function initMC(id) {
+  var data = mcData[id]; if (!data) return;
+  var cont = document.getElementById('mc-'+id); if (!cont) return;
+  cont.innerHTML = '';
+  mcSel[id] = {}; mcDone[id] = {};
+  data.forEach(function(q, qi) {
+    var qDiv = document.createElement('div'); qDiv.className = 'mc-q';
+    var qText = document.createElement('p'); qText.className = 'mc-q-text';
+    qText.innerHTML = '<span class="mc-q-num">'+(qi+1)+'.</span>'+q.q;
+    qDiv.appendChild(qText);
+    q.ops.forEach(function(op, oi) {
+      var btn = document.createElement('button'); btn.className = 'mc-opt';
+      btn.id = 'mc-'+id+'-'+qi+'-'+oi; btn.textContent = op;
+      btn.onclick = function(){ selMC(id, qi, oi); };
+      qDiv.appendChild(btn);
+    });
+    var expDiv = document.createElement('div'); expDiv.className = 'mc-exp';
+    expDiv.id = 'mc-exp-'+id+'-'+qi; expDiv.innerHTML = q.exp;
+    qDiv.appendChild(expDiv);
+    cont.appendChild(qDiv);
+  });
+  document.getElementById('fb-'+id).className = 'feedback';
+  document.getElementById('sc-'+id).textContent = '—';
+}
+
+function selMC(id, qi, oi) {
+  if (mcDone[id] && mcDone[id][qi]) return;
+  mcSel[id][qi] = oi;
+}
+
+function comprobarMC(id) {
+  var data = mcData[id]; var correct = 0;
+  data.forEach(function(q, qi) {
+    var sel = mcSel[id] && mcSel[id][qi];
+    if (sel === undefined) return;
+    q.ops.forEach(function(_, oi) {
+      var btn = document.getElementById('mc-'+id+'-'+qi+'-'+oi);
+      if (!btn) return;
+      btn.onclick = null;
+      if (oi === sel && oi === q.ok) { btn.classList.add('correct'); correct++; }
+      else if (oi === sel && oi !== q.ok) btn.classList.add('wrong');
+      else if (oi === q.ok) btn.classList.add('correct');
+    });
+    var exp = document.getElementById('mc-exp-'+id+'-'+qi);
+    if (exp) exp.classList.add('visible');
+    if (!mcDone[id]) mcDone[id] = {};
+    mcDone[id][qi] = true;
+  });
+  var total = data.length;
+  var key = id.startsWith('b2') ? 'b2' : 'b3';
+  STATE[key][id] = { correct: correct, total: total };
+  setBadge('sc-'+id, correct, total);
+  showFB('fb-'+id, correct===total?'ok':correct>=Math.ceil(total*.6)?'partial':'fail',
+    correct+'/'+total+' correctas.'+(correct===total?' ¡Perfecto!':' Lee las explicaciones en azul.'));
+  updateProgress();
+}
+
+function resetMC(id) {
+  mcSel[id] = {}; mcDone[id] = {};
+  var data = mcData[id];
+  data.forEach(function(q, qi) {
+    q.ops.forEach(function(_, oi) {
+      var btn = document.getElementById('mc-'+id+'-'+qi+'-'+oi);
+      if (btn) { btn.className = 'mc-opt'; btn.onclick = function(){ selMC(id,qi,oi); }; }
+    });
+    var exp = document.getElementById('mc-exp-'+id+'-'+qi);
+    if (exp) exp.classList.remove('visible');
+  });
+  document.getElementById('fb-'+id).className = 'feedback';
+  document.getElementById('sc-'+id).textContent = '—';
+  var key = id.startsWith('b2') ? 'b2' : 'b3';
+  STATE[key][id] = null; updateProgress();
+}
+
+// ══════════════════════════════════════════════════════════
+// SORT
+// ══════════════════════════════════════════════════════════
+var sortData = {
+  'b2-5': [
+    { id:'s1', texto:'La mujer podía poseer su dote y recuperarla en caso de divorcio justificado', orden:1,
+      desc:'Reconocimiento de ciertos derechos patrimoniales' },
+    { id:'s2', texto:'El matrimonio requería un contrato formal para ser legalmente válido', orden:2,
+      desc:'Regulación formal, aunque favorece al hombre' },
+    { id:'s3', texto:'El hombre podía divorciarse con mayor facilidad que la mujer', orden:3,
+      desc:'Desigualdad en el acceso al divorcio' },
+    { id:'s4', texto:'Las penas por daños a las mujeres se calculaban en función del estatus del hombre al que pertenecían', orden:4,
+      desc:'El cuerpo de la mujer como propiedad masculina' },
+    { id:'s5', texto:'La mujer podía ser vendida para pagar las deudas del marido', orden:5,
+      desc:'La mujer como bien económico transferible' },
+  ]
+};
+var sortSel = {};
+var sortDone = {};
+
+function initSort(id) {
+  var data = sortData[id]; if (!data) return;
+  var cont = document.getElementById('sort-'+id); if (!cont) return;
+  sortSel[id] = []; sortDone[id] = false;
+  cont.innerHTML = '';
+  var shuffled = data.slice().sort(function(){ return Math.random()-.5; });
+  shuffled.forEach(function(item) {
+    var div = document.createElement('div'); div.className = 'sort-item';
+    div.id = 'si-'+id+'-'+item.id;
+    div.onclick = function(){ selSort(id, item.id); };
+    div.innerHTML = '<div class="sort-pos" id="sp-'+id+'-'+item.id+'">·</div>'
+      +'<div><div style="font-size:.9rem">'+item.texto+'</div>'
+      +'<div style="font-size:.78rem;color:var(--sub);margin-top:3px">'+item.desc+'</div></div>';
+    cont.appendChild(div);
+  });
+  document.getElementById('fb-'+id).className = 'feedback';
+  document.getElementById('sc-'+id).textContent = '—';
+}
+
+function selSort(id, itemId) {
+  if (sortDone[id]) return;
+  var idx = sortSel[id].indexOf(itemId);
+  if (idx > -1) sortSel[id].splice(idx, 1);
+  else if (sortSel[id].length < sortData[id].length) sortSel[id].push(itemId);
+  sortData[id].forEach(function(item) {
+    var pos = sortSel[id].indexOf(item.id);
+    var el = document.getElementById('si-'+id+'-'+item.id);
+    var sp = document.getElementById('sp-'+id+'-'+item.id);
+    if (pos > -1) { el.className = 'sort-item selected'; sp.textContent = pos+1; }
+    else { el.className = 'sort-item'; sp.textContent = '·'; }
+  });
+}
+
+function comprobarSort(id) {
+  if (sortSel[id].length < sortData[id].length) {
+    showFB('fb-'+id,'partial','Ordena todos los elementos antes de comprobar.'); return;
+  }
+  sortDone[id] = true;
+  var correct = 0;
+  sortSel[id].forEach(function(itemId, pos) {
+    var item = sortData[id].find(function(x){ return x.id === itemId; });
+    var el = document.getElementById('si-'+id+'-'+item.id);
+    var sp = document.getElementById('sp-'+id+'-'+item.id);
+    el.onclick = null; sp.textContent = pos+1;
+    if (item.orden === pos+1) { el.className = 'sort-item correct'; correct++; }
+    else el.className = 'sort-item wrong';
+  });
+  var total = sortData[id].length;
+  STATE.b2[id] = { correct: correct, total: total };
+  setBadge('sc-'+id, correct, total);
+  showFB('fb-'+id, correct===total?'ok':correct>=3?'partial':'fail',
+    correct+'/'+total+' posiciones correctas.'+(correct===total?' ¡Excelente análisis!':''));
+  updateProgress();
+}
+
+function resetSort(id) {
+  STATE.b2[id] = null; initSort(id); updateProgress();
+}
+
+// ══════════════════════════════════════════════════════════
+// REFLEXIÓN FINAL
+// ══════════════════════════════════════════════════════════
+function guardarRefs() {
+  var r1 = document.getElementById('ref1').value.trim();
+  var r2 = document.getElementById('ref2').value.trim();
+  var r3 = document.getElementById('ref3').value.trim();
+  var rellenas = [r1,r2,r3].filter(function(r){ return r.length > 10; }).length;
+  if (rellenas < 2) {
+    showFB('fb-ref','partial','Responde al menos dos preguntas antes de guardar.');
+    return;
+  }
+  STATE.b3.ref = { r1:r1, r2:r2, r3:r3, guardado:true };
+  setBadge('sc-ref', rellenas, 3);
+  showFB('fb-ref','ok','✓ Reflexiones guardadas. La docente las leerá en el panel de informe.');
+  updateProgress();
+}
+
+// ══════════════════════════════════════════════════════════
+// SISTEMA DE INFORME
+// ══════════════════════════════════════════════════════════
+var INF_MAPA = [
+  { bloque:'B1 — Mesopotamia', key:'b1', act:'vf1',    label:'V/F — Mesopotamia y Hammurabi' },
+  { bloque:'B1 — Mesopotamia', key:'b1', act:'m1',     label:'Matching — Estela y significados' },
+  { bloque:'B1 — Mesopotamia', key:'b1', act:'cloze1', label:'Cloze — Geografía de Mesopotamia' },
+  { bloque:'B2 — El Código',   key:'b2', act:'b2-4',   label:'EM — El Código y sus principios' },
+  { bloque:'B2 — El Código',   key:'b2', act:'b2-5',   label:'Ordenar — Características del Código' },
+  { bloque:'B2 — El Código',   key:'b2', act:'cloze2', label:'Cloze — Conceptos clave' },
+  { bloque:'B3 — La mujer',    key:'b3', act:'b3-7',   label:'EM — Análisis de leyes' },
+  { bloque:'B3 — La mujer',    key:'b3', act:'m2',     label:'Matching — Pasado y presente' },
+  { bloque:'B3 — La mujer',    key:'b3', act:'ref',    label:'Reflexión final (texto abierto)' },
+];
+
+function infGetR(key, act) {
+  var entry = STATE[key][act];
+  if (!entry) return { tipo:'pend', texto:'Pendiente', nota:'—' };
+  if (act === 'ref') {
+    var n = [entry.r1,entry.r2,entry.r3].filter(function(r){ return r && r.length > 2; }).length;
+    return { tipo:'txt', texto: n+'/3 respondidas', nota: entry.r1 ? '"'+entry.r1.slice(0,55)+(entry.r1.length>55?'…':'')+'"' : '—' };
+  }
+  var pct = Math.round(entry.correct/entry.total*100);
+  return { tipo: pct===100?'ok':pct>=60?'par':'mal', texto:entry.correct+'/'+entry.total, nota:pct+'%' };
+}
+
+function infPill(tipo, texto) {
+  return '<span class="inf-pill '+tipo+'">'+texto+'</span>';
+}
+
+function abrirModalAlumno() {
+  var tbody = document.getElementById('alum-tbody'); tbody.innerHTML = '';
+  INF_MAPA.forEach(function(row) {
+    var r = infGetR(row.key, row.act);
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td style="font-size:.76rem;color:var(--sub)">'+row.bloque+'</td>'
+      +'<td style="font-size:.8rem">'+row.label+'</td>'
+      +'<td>'+infPill(r.tipo,r.texto)+'</td>'
+      +'<td style="font-weight:700;font-size:.8rem">'+r.nota+'</td>';
+    tbody.appendChild(tr);
+  });
+  var completadas = INF_MAPA.filter(function(r){ return STATE[r.key][r.act]; }).length;
+  document.getElementById('alum-resumen').textContent = 'Actividades completadas: '+completadas+'/'+INF_MAPA.length;
+  document.getElementById('alum-aviso').classList.toggle('visible', completadas < INF_MAPA.length);
+  document.getElementById('alum-codigo').classList.remove('visible');
+  document.getElementById('btn-copiar').classList.remove('visible');
+  document.getElementById('copy-ok').classList.remove('visible');
+  document.getElementById('alum-overlay').classList.add('open');
+}
+
+function cerrarModalAlumno() { document.getElementById('alum-overlay').classList.remove('open'); }
+
+function generarCodigo() {
+  var ini = document.getElementById('alum-ini').value.trim();
+  if (!ini) {
+    var inp = document.getElementById('alum-ini');
+    inp.style.borderColor = 'var(--mal-brd)';
+    inp.focus();
+    setTimeout(function(){ inp.style.borderColor = ''; }, 1800);
+    return;
+  }
+  var payload = { v:1, asignatura:'GyH-Hammurabi', iniciales:ini, ts:new Date().toISOString(), state:STATE };
+  var b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  var caja = document.getElementById('alum-codigo');
+  caja.textContent = b64; caja.classList.add('visible');
+  document.getElementById('btn-copiar').classList.add('visible');
+  document.getElementById('copy-ok').classList.remove('visible');
+}
+
+function copiarCodigo() {
+  var texto = document.getElementById('alum-codigo').textContent;
+  if (!texto) return;
+  var fallback = function() {
+    var ta = document.createElement('textarea'); ta.value = texto;
+    ta.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    document.getElementById('copy-ok').classList.add('visible');
+    setTimeout(function(){ document.getElementById('copy-ok').classList.remove('visible'); }, 2500);
+  };
+  if (navigator.clipboard) navigator.clipboard.writeText(texto).then(function(){
+    document.getElementById('copy-ok').classList.add('visible');
+    setTimeout(function(){ document.getElementById('copy-ok').classList.remove('visible'); }, 2500);
+  }).catch(fallback);
+  else fallback();
+}
+
+function abrirModalDocente() {
+  document.getElementById('doc-paste').value = '';
+  document.getElementById('doc-resultado').classList.remove('visible');
+  document.getElementById('doc-error').className = 'feedback';
+  document.getElementById('doc-refs').style.display = 'none';
+  document.getElementById('doc-overlay').classList.add('open');
+  setTimeout(function(){ document.getElementById('doc-paste').focus(); }, 120);
+}
+
+function cerrarModalDocente() { document.getElementById('doc-overlay').classList.remove('open'); }
+
+function decodificarInforme() {
+  var b64 = document.getElementById('doc-paste').value.trim();
+  var errEl = document.getElementById('doc-error');
+  errEl.className = 'feedback';
+  document.getElementById('doc-resultado').classList.remove('visible');
+  if (!b64) { errEl.className='feedback fail'; errEl.textContent='Pega primero el código.'; return; }
+  var payload;
+  try { payload = JSON.parse(decodeURIComponent(escape(atob(b64)))); }
+  catch(e) { errEl.className='feedback fail'; errEl.textContent='⚠️ Código no válido.'; return; }
+  if (!payload.state || !payload.iniciales) {
+    errEl.className='feedback fail'; errEl.textContent='⚠️ El formato no corresponde a este recurso.'; return;
+  }
+  var completadas = INF_MAPA.filter(function(r){ return payload.state[r.key] && payload.state[r.key][r.act]; }).length;
+  var fecha = '—';
+  try { fecha = new Date(payload.ts).toLocaleString('es-ES',{dateStyle:'short',timeStyle:'short'}); } catch(e){}
+  document.getElementById('doc-alumno-card').innerHTML =
+    '<strong>Iniciales: '+payload.iniciales+'</strong> · '+(payload.asignatura||'')+' · '+fecha
+    +'<br>Actividades completadas: <strong>'+completadas+'/'+INF_MAPA.length+'</strong>';
+
+  // Tabla con reflexiones inline
+  var tbody = document.getElementById('doc-tbody'); tbody.innerHTML = '';
+  var prevBloque = '';
+  INF_MAPA.forEach(function(row) {
+    var entry = payload.state[row.key] && payload.state[row.key][row.act];
+    var r;
+    if (!entry) { r = { tipo:'pend', texto:'Pendiente', nota:'—' }; }
+    else if (row.act === 'ref') {
+      var n = [entry.r1,entry.r2,entry.r3].filter(function(x){ return x && x.length > 2; }).length;
+      r = { tipo:'txt', texto: n+'/3 respondidas', nota:'—' };
+    } else {
+      var pct = Math.round(entry.correct/entry.total*100);
+      r = { tipo: pct===100?'ok':pct>=60?'par':'mal', texto:entry.correct+'/'+entry.total, nota:pct+'%' };
+    }
+    var bloqueCell = row.bloque !== prevBloque ? row.bloque : '';
+    prevBloque = row.bloque;
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td style="font-size:.75rem;color:var(--sub);white-space:nowrap">'+bloqueCell+'</td>'
+      +'<td style="font-size:.8rem">'+row.label+'</td>'
+      +'<td>'+infPill(r.tipo,r.texto)+'</td>'
+      +'<td style="font-weight:700;font-size:.8rem">'+r.nota+'</td>';
+    tbody.appendChild(tr);
+    // Reflexiones: añadir subfilas
+    if (row.act === 'ref' && entry && entry.guardado) {
+      var preguntas = [
+        '¿Qué ley elegiste y qué dice sobre el papel de la mujer?',
+        '¿Supuso el Código un avance o retroceso para las mujeres?',
+        '¿Qué mensaje incluirás en tu pergamino?'
+      ];
+      ['r1','r2','r3'].forEach(function(k,i) {
+        var resp = entry[k] || '';
+        var tr2 = document.createElement('tr');
+        tr2.style.background = 'var(--bg)';
+        tr2.innerHTML = '<td style="font-size:.7rem;color:var(--sub);padding-left:16px">↳ P'+(i+1)+'</td>'
+          +'<td style="font-size:.75rem;color:var(--sub);font-style:italic">'+preguntas[i]+'</td>'
+          +'<td colspan="2" style="font-size:.82rem;color:var(--tinta);line-height:1.5;padding:5px 10px">'
+          +(resp || '<span style="color:var(--sub);font-style:italic">Sin respuesta</span>')+'</td>';
+        tbody.appendChild(tr2);
+      });
+    }
+  });
+  document.getElementById('doc-resultado').classList.add('visible');
+}
+
+// Ctrl+Shift+D → panel docente
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+    e.preventDefault();
+    document.getElementById('alum-overlay').classList.remove('open');
+    abrirModalDocente();
+  }
+});
+document.addEventListener('click', function(e) {
+  if (e.target.id === 'alum-overlay') cerrarModalAlumno();
+  if (e.target.id === 'doc-overlay') cerrarModalDocente();
+});
+
+// ══════════════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', function() {
+  initVF('vf1');
+  initMatch('m1');
+  initCloze('cloze1');
+  initMC('b2-4');
+  initSort('b2-5');
+  initCloze('cloze2');
+  initMC('b3-7');
+  initMatch('m2');
+  updateProgress();
+});
+</script>
+</body>
+</html>
